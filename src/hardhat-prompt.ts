@@ -1,6 +1,7 @@
 import ethers from 'ethers';
 import prompts from 'prompts';
 import { AbiBuilder, HardhatContractAbi } from './hardhat-abi';
+import { formatType } from './utils/format';
 
 interface ParsedAbi {
     name: string
@@ -65,12 +66,14 @@ export class BaseContractPrompt {
     
         if (pAbi.inputs.length != 0) {
             for await (const input of pAbi.inputs) {
-                const response = await prompts([{
+                const insert = await prompts([{
                     type: 'text',
                     name: 'value',
                     message: input.name + '(' + input.type + ')'
                 }]);
-                result.push(response.value);
+
+                const res = formatType(input.type, insert.value);
+                result.push(res);
             }
         }
         return result;
