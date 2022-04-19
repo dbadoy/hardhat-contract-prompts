@@ -51,6 +51,7 @@ export class HardhatContractAbi {
 
     constructor(abiPaths: any) {
         for (const abiPath of abiPaths) {
+            // need correct path.
             const { contractName, abi } = require('../' + abiPath);
             if (abi.length == 0) { continue; }
             this.AbiMap[contractName] = abi;
