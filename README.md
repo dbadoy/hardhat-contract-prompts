@@ -2,6 +2,13 @@
 It's project that build CLI prompt with your Solidity codes.<br>
 It will be helpful for testing Solidity code.
 
+
+## Install
+Intsall in hardhat project root directory.
+```
+npm i hardhat-contract-prompts
+```
+
 ## Usage
 1. Place solidity code to 'contracts' in hardhat project path.
 2. Import prompt.
