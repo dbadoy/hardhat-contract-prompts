@@ -1,11 +1,35 @@
 # hardhat-contract-prompts
-skel
+It's project that build CLI prompt with your Solidity codes.<br>
+It will be helpful for testing Solidity code.
 
-## Feature
-skel
+- [X] Build View method
+- [ ] Build Invoke method
 
 ## Usage
-skel
+1. Place solidity code to 'contracts' in hardhat project path.
+2. Import prompt.
+```
+import { ViewContractPrompt } from 'hardhat-contract-prompts';
+```
+3. Generate prompt.
+```
+const vcp = new ViewContractPrompt();
+```
+4. Set contract name, prompt message.
+```
+await vcp.prepare('CONTRACT_NAME', 'my prompts...');
+```
+5. Execute !
+```
+// contract -> ethers.Contract
+const res = await vcp.executre(contract);
+console.log(res);
+```
+6. Run script
+```
+// It doesn't work in 'npx hardhat test'. Use 'hardhat run'.
+$ npx hardhat run [script]
+```
 
 ## Example
 #### Example 1 : Greeter
