@@ -1,6 +1,6 @@
 import ethers from 'ethers';
 import prompts from 'prompts';
-import { AbiBuilder, HardhatContractAbi } from './hardhat-abi';
+import { AbiBuilder, HardhatContractAbi } from './utils/hardhat-abi';
 import { formatType } from './utils/format';
 
 interface ParsedAbi {

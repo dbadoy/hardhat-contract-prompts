@@ -52,7 +52,7 @@ export class HardhatContractAbi {
     constructor(abiPaths: any) {
         for (const abiPath of abiPaths) {
             // need correct path.
-            const { contractName, abi } = require('../' + abiPath);
+            const { contractName, abi } = require(process.cwd() + '/' + abiPath);
             if (abi.length == 0) { continue; }
             this.AbiMap[contractName] = abi;
         }

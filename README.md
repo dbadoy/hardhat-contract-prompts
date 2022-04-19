@@ -2,11 +2,6 @@
 It's project that build CLI prompt with your Solidity codes.<br>
 It will be helpful for testing Solidity code.
 
-- [X] 1. Build View method
-- [ ] 2. Build Invoke method
-- [ ] 3. 
-- [ ] 4. 
-
 ## Usage
 1. Place solidity code to 'contracts' in hardhat project path.
 2. Import prompt.
@@ -94,3 +89,9 @@ async function temp() {
 <img width="856" alt="스크린샷 2022-04-20 오전 12 58 01" src="https://user-images.githubusercontent.com/72970043/164046266-2030fba2-80f9-460f-acf0-9d98d6120cd0.png">
 
 
+## Todo?
+
+- [X] 1. Build View method
+- [ ] 2. Build Invoke method
+- [ ] 3. 
+- [ ] 4. 
