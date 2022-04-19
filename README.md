@@ -2,8 +2,10 @@
 It's project that build CLI prompt with your Solidity codes.<br>
 It will be helpful for testing Solidity code.
 
-- [X] Build View method
-- [ ] Build Invoke method
+- [X] 1. Build View method
+- [ ] 2. Build Invoke method
+- [ ] 3. 
+- [ ] 4. 
 
 ## Usage
 1. Place solidity code to 'contracts' in hardhat project path.
@@ -19,13 +21,13 @@ const vcp = new ViewContractPrompt();
 ```
 await vcp.prepare('CONTRACT_NAME', 'my prompts...');
 ```
-5. Execute !
+5. Execute.
 ```
 // contract -> ethers.Contract
 const res = await vcp.executre(contract);
 console.log(res);
 ```
-6. Run script
+6. Run script.
 ```
 // It doesn't work in 'npx hardhat test'. Use 'hardhat run'.
 $ npx hardhat run [script]
