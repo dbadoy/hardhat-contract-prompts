@@ -4,7 +4,7 @@
   "description": "Help create prompt for query your smartcontract view apis.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc --build ."
   },
   "repository": {
     "type": "git",
@@ -16,6 +16,9 @@
     "url": "https://github.com/dbadoy/hardhat-contract-prompts/issues"
   },
   "homepage": "https://github.com/dbadoy/hardhat-contract-prompts#readme",
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "@types/node": "^17.0.25"
   },
