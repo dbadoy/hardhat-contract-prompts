@@ -26,7 +26,7 @@ await vcp.prepare('CONTRACT_NAME', 'my prompts...');
 5. Execute.
 ```
 // contract -> ethers.Contract
-const res = await vcp.executre(contract);
+const res = await vcp.execute(contract);
 console.log(res);
 ```
 6. Run script.
