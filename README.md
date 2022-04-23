@@ -96,6 +96,31 @@ async function temp() {
 <img width="856" alt="스크린샷 2022-04-20 오전 12 58 01" src="https://user-images.githubusercontent.com/72970043/164046266-2030fba2-80f9-460f-acf0-9d98d6120cd0.png">
 
 
+#### Example 3 : ethers.Contract
+```Typescript
+import { ethers } from 'hardhat';
+import { ViewContractPrompt } from './hardhat-prompt';
+
+const CONTRACT_NAME = 'myContract';
+const CONTRACT_ADDRESS = '0x0000...';
+const CONTRACT_ABI = [];
+
+async function temp() {
+    const provider = new ethers.providers.StaticJsonRpcProvider(
+        "http://127.0.0.1:8545", {chainId: 1337, name: 'localhost'}
+    );
+    
+    const vcp = new ViewContractPrompt();
+    const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
+
+    await vcp.prepare(CONTRACT_NAME, 'My test hardhat prompt for view.');
+
+    const res = await vcp.execute(contract);
+    console.log(res);
+}
+
+```
+
 ## Todo
 
 - [X] 1. Build View method
