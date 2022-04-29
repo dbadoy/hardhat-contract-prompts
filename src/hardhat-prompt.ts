@@ -144,7 +144,7 @@ export class InvokeContractPrompt extends BaseContractPrompt {
     }
 
     InvokePromptParserOpt(abi: any): boolean {
-        if (abi.type == 'funtion' && abi.stateMutability != 'view') {
+        if (abi.type == 'function' && abi.stateMutability != 'view') {
             return true;
         }
         return false;

@@ -18,7 +18,7 @@ export function formatType(type: string, value: any): any {
         case 'int256' :
         case 'int32' :
         case 'int8' :
-            return Number(value);
+            return value.toString();
         
         /*
         case 'bytes' :
