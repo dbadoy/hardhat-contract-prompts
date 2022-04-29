@@ -122,9 +122,36 @@ async function temp() {
 
 ```
 
+<hr>
+
+#### Example 4 : InvokeContractPrompt
+```Typescript
+import { ethers } from 'ethers';
+import { InvokeContractPrompt } from 'hardhat-contract-prompts'
+
+const CONTRACT_NAME = 'myContract';
+const CONTRACT_ADDRESS = '0x0000...';
+const CONTRACT_ABI = [];
+
+async function temp() {
+    const signer = (await ethers.getSigners())[0];
+    
+    const icp = new InvokeContractPrompt();
+    const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+    
+    await icp.prepare(CONTRACT_NAME, 'My test hardhat prompt for invoke.');
+    
+    const res = await icp.execute(contract);
+    await res.wait();
+    
+    console.log(res);
+}
+
+```
+
 ## Todo
 
 - [X] 1. Build View method
-- [ ] 2. Build Invoke method
+- [X] 2. Build Invoke method
 - [ ] 3. 
 - [ ] 4. 
