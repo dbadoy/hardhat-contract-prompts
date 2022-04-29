@@ -136,3 +136,17 @@ export class ViewContractPrompt extends BaseContractPrompt {
         return false;
     }
 }
+
+export class InvokeContractPrompt extends BaseContractPrompt {
+    constructor() {
+        super();
+        this.Parser(this.InvokePromptParserOpt);
+    }
+
+    InvokePromptParserOpt(abi: any): boolean {
+        if (abi.type == 'function' && abi.stateMutability != 'view') {
+            return true;
+        }
+        return false;
+    }
+}
