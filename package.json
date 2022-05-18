@@ -10,6 +10,13 @@
     "type": "git",
     "url": "git+https://github.com/dbadoy/hardhat-contract-prompts.git"
   },
+  "keywords": [
+    "hardhat",
+    "solidity",
+    "ethereum",
+    "smart",
+    "contracts"
+  ]
   "author": "dbadoy",
   "license": "MIT",
   "bugs": {
