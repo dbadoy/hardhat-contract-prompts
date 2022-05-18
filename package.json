@@ -1,6 +1,6 @@
 {
   "name": "hardhat-contract-prompts",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "Help create prompt for query your smartcontract view apis.",
   "main": "index.js",
   "scripts": {
