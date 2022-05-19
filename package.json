@@ -1,6 +1,6 @@
 {
   "name": "hardhat-contract-prompts",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "Help create prompt for query your smartcontract view apis.",
   "main": "index.js",
   "scripts": {
@@ -12,6 +12,7 @@
   },
   "keywords": [
     "hardhat",
+    "hardhat-plugin",
     "solidity",
     "ethereum",
     "smart",
@@ -27,7 +28,8 @@
     "dist"
   ],
   "devDependencies": {
-    "@types/node": "^17.0.25"
+    "@types/node": "^17.0.25",
+    "@types/prompts": "^2.0.14"
   },
   "dependencies": {
     "ethers": "^5.6.4",
