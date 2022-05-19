@@ -2,7 +2,7 @@
   "name": "hardhat-contract-prompts",
   "version": "1.0.23",
   "description": "Help create prompt for query your smartcontract view apis.",
-  "main": "index.js",
+  "main": "dist/hardhat-prompt.js",
   "scripts": {
     "build": "tsc --build ."
   },
