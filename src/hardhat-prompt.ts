@@ -15,13 +15,20 @@ interface AbiInput {
 }
 
 interface Choice {
-    title: string,
-    description: string,
+    title: string
+    description: string
     value: any
+}
+
+interface AbiMethodParser {
+    (abi: any): boolean
 }
 
 export class BaseContractPrompt {
     private prompt: any;
+    
+    private defaultPromptParser: AbiMethodParser = (abi: any) => { return true; }
+
     readonly hca: HardhatContractAbi;
     readonly parsedAbis: {[k: string]: any} = {};
 
@@ -29,8 +36,8 @@ export class BaseContractPrompt {
         this.hca = new AbiBuilder().load().parse().build();
     }
 
-    Parser(parserOpt: any | undefined) {
-        if (parserOpt === undefined) { parserOpt = this.DefaultPromptParserOpt; }
+    protected parser(parserOpt: AbiMethodParser | undefined) {
+        if (parserOpt === undefined) { parserOpt = this.defaultPromptParser; }
 
         const contractNames = this.hca.getKeys();
         for (const contractName of contractNames) {
@@ -49,19 +56,42 @@ export class BaseContractPrompt {
         }
     }
 
-    DefaultPromptParserOpt(abi: any): boolean {
-        return true;
+    public async prepare(contractName: string, mesg: string) {
+        const cic = await this.generateChoices(contractName);
+        this.prompt = prompts([
+            {
+                type: 'select',
+                name: 'value',
+                message: mesg,
+                choices: cic,
+                initial: 0
+            }
+        ]);
     }
 
-    getParsedAbis() {
+    public async execute(contract: ethers.Contract): Promise<any> {
+        if (this.prompt === undefined) { throw new Error('prepare() first.'); }
+        const res = await this.prompt;
+        const param: string[] = await this.getter(res.value);
+
+        let result: any;
+        if (param.length > 0)
+            result = await contract[res.value.name](...param);
+        else
+            result = await contract[res.value.name]();
+
+        return result;
+    }
+
+    public getParsedAbis() {
         return this.parsedAbis;
     }
 
-    getParsedAbi(contractName: string) {
+    public getParsedAbi(contractName: string) {
         return this.parsedAbis[contractName] ?? new Error('non exist contract !');
     }
 
-    async getter(pAbi: ParsedAbi): Promise<string[]> {
+    private async getter(pAbi: ParsedAbi): Promise<string[]> {
         let result: string[] = [];
     
         if (pAbi.inputs.length != 0) {
@@ -79,7 +109,7 @@ export class BaseContractPrompt {
         return result;
     }
 
-    async generateChoices(contractName: string): Promise<Choice[]> {
+    private async generateChoices(contractName: string): Promise<Choice[]> {
         const pa = this.getParsedAbi(contractName);
 
         let cic: Choice[] = [];
@@ -94,59 +124,32 @@ export class BaseContractPrompt {
 
         return cic;
     }
-
-    async prepare(contractName: string, mesg: string) {
-        const cic = await this.generateChoices(contractName); 
-        this.prompt = prompts([
-            {
-                type: 'select',
-                name: 'value',
-                message: mesg,
-                choices: cic,
-                initial: 0
-            }
-        ]);
-    }
-
-    async execute(contract: ethers.Contract): Promise<any> {
-        if (this.prompt === undefined) { throw new Error('prepare() first.'); }
-        const res = await this.prompt;
-        const param: string[] = await this.getter(res.value);
-        
-        let result: any;
-        if (param.length > 0)
-            result = await contract[res.value.name](...param);
-        else
-            result = await contract[res.value.name]();
-
-        return result;
-    }
 }
 
 export class ViewContractPrompt extends BaseContractPrompt {
-    constructor() {
-        super();
-        this.Parser(this.ViewPromptParserOpt);
-    }
-
-    ViewPromptParserOpt(abi: any): boolean {
+    private parserOpt: AbiMethodParser = (abi: any) => {
         if (abi.type == 'function' && abi.stateMutability == 'view') {
             return true;
         }
         return false;
     }
+
+    constructor() {
+        super();
+        this.parser(this.parserOpt);
+    }
 }
 
 export class InvokeContractPrompt extends BaseContractPrompt {
-    constructor() {
-        super();
-        this.Parser(this.InvokePromptParserOpt);
-    }
-
-    InvokePromptParserOpt(abi: any): boolean {
+    private parserOpt: AbiMethodParser = (abi: any) => {
         if (abi.type == 'function' && abi.stateMutability != 'view') {
             return true;
         }
         return false;
+    }
+
+    constructor() {
+        super();
+        this.parser(this.parserOpt);
     }
 }
