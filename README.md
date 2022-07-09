@@ -153,5 +153,5 @@ async function temp() {
 
 - [X] 1. Build View method
 - [X] 2. Build Invoke method
-- [ ] 3. 
-- [ ] 4. 
+- [ ] 3. Use Hardhat.artifacts instead of src/utils
+- [ ] 4. Send PR to Hardhat - Community plugin
